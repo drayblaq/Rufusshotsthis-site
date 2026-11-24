@@ -42,7 +42,8 @@ export function ConfirmButton({ className }: { className?: string }) {
 }
 
 /**
- * Mobile/tablet: a bar stuck to the bottom of the booking form (position: sticky,
+ * Tablets (md to lg) only: phones use the bottom nav's "Send" button instead.
+ * A bar stuck to the bottom of the booking form (position: sticky,
  * so it never covers the footer), padded above the iPhone home bar.
  * data-hide-fab hides the floating WhatsApp button on this page (globals.css).
  */
@@ -60,7 +61,7 @@ export function StickyBar({
     <div
       data-booking-bar
       data-hide-fab
-      className="sticky bottom-0 z-30 -mx-[4.3478%] mt-6 border-t-2 border-ink bg-background px-[4.3478%] pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden"
+      className="sticky bottom-0 z-30 -mx-[4.3478%] mt-6 border-t-2 border-ink bg-background px-[4.3478%] pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] max-md:hidden lg:hidden"
     >
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <div aria-live="polite" className="min-w-0 text-sm leading-snug">

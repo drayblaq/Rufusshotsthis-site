@@ -2,9 +2,21 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Aperture, House, Images, MessageCircle, Tag } from "lucide-react";
+import {
+  Aperture,
+  House,
+  Images,
+  MessageCircle,
+  Send,
+  Tag,
+} from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { mobileNavLabels as L, whatsappMessages } from "@/content/site";
+import {
+  getBookingBar,
+  getServerBookingBar,
+  subscribeBookingBar,
+} from "@/lib/booking-bar";
 import { cn } from "@/lib/utils";
 import { whatsappLink } from "@/lib/whatsapp";
 
@@ -13,7 +25,8 @@ import { whatsappLink } from "@/lib/whatsapp";
  *
  *   Home | Portfolio | (Book shutter button) | Prices | Chat
  *
- * - Hidden on /book: the sticky confirm bar owns the bottom of that page.
+ * - On /book (while the form is shown) the centre button becomes "Send": a submit
+ *   button for the booking form, plus a summary strip above the bar.
  * - Slides away while a text field is focused / the on-screen keyboard is open.
  * - The lightbox is a modal <dialog> (top layer), so it always covers this bar.
  */
@@ -56,7 +69,14 @@ const useKeyboardOpen = () =>
 export function MobileNav() {
   const pathname = usePathname();
   const keyboardOpen = useKeyboardOpen();
-  if (pathname === "/book") return null;
+  const booking = useSyncExternalStore(
+    subscribeBookingBar,
+    getBookingBar,
+    getServerBookingBar,
+  );
+  const sendMode = pathname === "/book" && booking.active;
+  const showStrip =
+    sendMode && (booking.summary !== "" || booking.errorCount > 0);
 
   // usePathname ignores ?query, so /portfolio?category=sports still highlights Portfolio.
   const active =
@@ -73,9 +93,29 @@ export function MobileNav() {
         "fixed inset-x-0 bottom-0 z-40 transition-transform duration-(--duration-base) ease-(--ease-soft) md:hidden",
         // Soft shadow that follows the notched shape (box-shadow would be clipped by the mask)
         "drop-shadow-[0_-4px_14px_rgba(28,25,23,0.14)]",
-        keyboardOpen && "pointer-events-none translate-y-[calc(100%+3rem)]",
+        keyboardOpen && "pointer-events-none translate-y-[calc(100%+9rem)]",
       )}
     >
+      {/* Book page: slim summary of the choices so far, floating just above the
+          raised button (so the button never covers it). aria-live announces changes. */}
+      {showStrip && (
+        <p
+          data-booking-strip
+          aria-live="polite"
+          className={cn(
+            "absolute left-1/2 max-w-[92%] -translate-x-1/2 truncate rounded-full px-4 py-1.5 text-[clamp(12px,0.8125rem,15px)] leading-tight font-semibold shadow-md",
+            booking.errorCount > 0
+              ? "bg-destructive text-white"
+              : "bg-ink text-paper",
+          )}
+          style={{ bottom: `calc(100% + ${FAB / 2 - FAB_DROP + 8}px)` }}
+        >
+          {booking.errorCount > 0
+            ? `${booking.errorCount === 1 ? "1 thing needs" : `${booking.errorCount} things need`} your attention`
+            : booking.summary}
+        </p>
+      )}
+
       {/* Bar surface with a curved notch cut around the Book button */}
       <div
         aria-hidden
@@ -119,35 +159,37 @@ export function MobileNav() {
           className={tabClass}
         />
 
-        {/* Centre: the raised shutter button */}
+        {/* Centre: the raised button. "Book" link everywhere, "Send" (submits the
+            booking form) on /book while the form is on screen. */}
         <li className="relative flex justify-center">
-          <Link
-            href="/book"
-            aria-label="Book a shoot"
-            onClick={() => navigator.vibrate?.(10)}
-            className="group absolute inset-x-0 bottom-0 flex flex-col items-center justify-end rounded-xl pb-2 outline-offset-[-3px] focus-visible:outline-2 focus-visible:outline-ink"
-            style={{ top: `${FAB_DROP - FAB / 2}px` }}
-          >
-            <span
-              className="absolute left-1/2 grid -translate-x-1/2 place-items-center rounded-full bg-ink text-paper shadow-[0_6px_16px_rgba(28,25,23,0.35)] ring-3 ring-highlight transition-transform duration-(--duration-fast) group-active:scale-90"
-              style={{ top: 0, width: FAB, height: FAB }}
+          {sendMode ? (
+            <button
+              type="submit"
+              form="booking-form"
+              aria-label="Send booking request on WhatsApp"
+              onClick={() => navigator.vibrate?.(10)}
+              className={centreClass}
+              style={{ top: `${FAB_DROP - FAB / 2}px` }}
             >
-              {/* Slow idle pulse; removed entirely for reduced motion */}
-              <span
-                aria-hidden
-                className="absolute inset-0 rounded-full border-2 border-highlight motion-safe:animate-[shutter-pulse_3.2s_ease-out_infinite] motion-reduce:hidden"
+              <CentreButton
+                key="send"
+                Icon={Send}
+                label={L.send}
+                pulse={booking.complete}
+                pulseFast
               />
-              {/* Aperture blades turn a quarter on press */}
-              <Aperture
-                aria-hidden
-                strokeWidth={2.25}
-                className="size-8 transition-transform duration-300 ease-(--ease-soft) group-active:rotate-90"
-              />
-            </span>
-            <span className="text-[clamp(12px,0.75rem,14px)] leading-none font-extrabold">
-              {L.book}
-            </span>
-          </Link>
+            </button>
+          ) : (
+            <Link
+              href="/book"
+              aria-label="Book a shoot"
+              onClick={() => navigator.vibrate?.(10)}
+              className={centreClass}
+              style={{ top: `${FAB_DROP - FAB / 2}px` }}
+            >
+              <CentreButton key="book" Icon={Aperture} label={L.book} pulse />
+            </Link>
+          )}
         </li>
 
         <Tab
@@ -219,5 +261,56 @@ function Tab({
         </span>
       </Link>
     </li>
+  );
+}
+
+const centreClass =
+  "group absolute inset-x-0 bottom-0 flex flex-col items-center justify-end rounded-xl pb-2 outline-offset-[-3px] focus-visible:outline-2 focus-visible:outline-ink";
+
+/**
+ * The raised circle + label. Keyed by mode, so switching Book <-> Send re-mounts it
+ * and plays the short morph (spin + scale in). Pulse: slow idle on "Book"; on "Send"
+ * only once the form is complete. Reduced motion: no pulse, no morph.
+ */
+function CentreButton({
+  Icon,
+  label,
+  pulse,
+  pulseFast = false,
+}: {
+  Icon: typeof Aperture;
+  label: string;
+  pulse: boolean;
+  pulseFast?: boolean;
+}) {
+  return (
+    <>
+      <span
+        className="absolute left-1/2 grid -translate-x-1/2 place-items-center rounded-full bg-ink text-paper shadow-[0_6px_16px_rgba(28,25,23,0.35)] ring-3 ring-highlight transition-transform duration-(--duration-fast) group-active:scale-90"
+        style={{ top: 0, width: FAB, height: FAB }}
+      >
+        {pulse && (
+          <span
+            aria-hidden
+            className={cn(
+              "absolute inset-0 rounded-full border-2 border-highlight motion-reduce:hidden",
+              pulseFast
+                ? "motion-safe:animate-[shutter-pulse_1.6s_ease-out_infinite]"
+                : "motion-safe:animate-[shutter-pulse_3.2s_ease-out_infinite]",
+            )}
+          />
+        )}
+        <span className="grid place-items-center motion-safe:animate-in motion-safe:duration-300 motion-safe:zoom-in-50 motion-safe:fade-in motion-safe:spin-in-90">
+          <Icon
+            aria-hidden
+            strokeWidth={2.25}
+            className="size-8 transition-transform duration-300 ease-(--ease-soft) group-active:rotate-90"
+          />
+        </span>
+      </span>
+      <span className="text-[clamp(12px,0.75rem,14px)] leading-none font-extrabold motion-safe:animate-in motion-safe:duration-300 motion-safe:fade-in">
+        {label}
+      </span>
+    </>
   );
 }

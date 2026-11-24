@@ -194,14 +194,12 @@ for (const [width, height] of VIEWPORTS) {
       test(`${p.name}`, async ({ page }) => {
         await open(page, p.path);
 
-        // Bottom nav: phones only, never on /book (the sticky confirm bar owns the bottom)
+        // Bottom nav: phones only (all pages, including /book)
         const navShown = await page
           .locator("[data-mobile-nav]")
           .isVisible()
           .catch(() => false);
-        expect(navShown, "bottom nav visibility").toBe(
-          width < MD && p.path !== "/book",
-        );
+        expect(navShown, "bottom nav visibility").toBe(width < MD);
         // Floating WhatsApp button: desktop/tablet only, never on /book
         const fabShown = await page.locator("[data-whatsapp-fab]").isVisible();
         expect(fabShown, "floating WhatsApp visibility").toBe(
@@ -365,10 +363,10 @@ test.describe("phone interactions", () => {
       .evaluate((u) => getComputedStyle(u).paddingBottom);
     expect(nav).toBe("34px");
     await open(page, "/book");
-    const bar = await page
-      .locator("[data-booking-bar]")
-      .evaluate((b) => parseFloat(getComputedStyle(b).paddingBottom));
-    expect(bar).toBeGreaterThanOrEqual(34);
+    const bookNav = await page
+      .locator("[data-mobile-nav] ul")
+      .evaluate((u) => getComputedStyle(u).paddingBottom);
+    expect(bookNav).toBe("34px");
   });
 });
 
@@ -477,3 +475,103 @@ test.describe("audit self-test", () => {
     expect(issues.some((i) => i.startsWith("horizontal scroll"))).toBe(true);
   });
 });
+
+/* ------------------------------------------------------------------ */
+/* Book page on phones: the bottom nav's centre button is "Send"       */
+/* ------------------------------------------------------------------ */
+
+for (const [width, height] of [
+  [320, 568],
+  [360, 740],
+  [390, 844],
+  [412, 915],
+  [568, 320], // landscape phone (still below md, so the bottom nav shows)
+] as [number, number][]) {
+  test.describe(`book flow ${width}x${height}`, () => {
+    test.use({ viewport: { width, height }, isMobile: true, hasTouch: true });
+
+    test("Send button, summary strip, confirmation", async ({ page }) => {
+      await open(page, "/book");
+      await page.evaluate(() => {
+        // capture the WhatsApp link instead of leaving the page
+        (window as unknown as { __wa?: string }).__wa = undefined;
+        window.open = ((u: string) => {
+          (window as unknown as { __wa?: string }).__wa = u;
+          return null;
+        }) as typeof window.open;
+      });
+      const nav = page.locator("[data-mobile-nav]");
+      const send = nav.getByRole("button", {
+        name: "Send booking request on WhatsApp",
+      });
+      const strip = page.locator("[data-booking-strip]");
+      await expect(send).toBeVisible();
+      await expect(nav.getByText("Send", { exact: true })).toBeVisible();
+      await expect(strip).toHaveCount(0); // nothing chosen yet
+      await expect(page.locator("[data-booking-bar]")).toBeHidden(); // no phone sticky bar
+
+      // Empty form: Send focuses the first problem and the strip reports errors
+      await send.click();
+      await expect(page.locator("input[name=packageId]").first()).toBeFocused();
+      await expect(strip).toContainText("need your attention");
+
+      // Fill it in
+      const pick = (name: string, value: string) =>
+        page
+          .locator(`label:has(> input[name=${name}][value="${value}"])`)
+          .click();
+      await pick("packageId", "standard");
+      const day = await page
+        .locator("input[name=date]:not(:disabled)")
+        .first()
+        .getAttribute("value");
+      await page
+        .locator(`label:has(> input[name=date][value="${day}"])`)
+        .click();
+      await pick("time", "11:00");
+      await pick("shootType", "convocation");
+      await pick("location", "ilorin");
+      await page.locator("#name").fill("Ada Obi");
+      // Typing: the nav (and strip) slide away
+      expect(await nav.evaluate((n) => getComputedStyle(n).translate)).not.toBe(
+        "none",
+      );
+      await page.locator("#name").blur();
+      await expect(nav).toHaveCSS("translate", "none");
+      await expect(strip).toContainText("Standard");
+      await expect(strip).toContainText("11:00 am");
+      // Complete form: the Send button pulses
+      await expect(send.locator(".border-highlight")).toHaveCount(1);
+
+      // Nothing covered by the nav or strip; footer ends above them
+      expect(await coverageCheck(page)).toEqual([]);
+      expect(await staticChecks(page)).toEqual([]);
+      await page.screenshot({
+        path: `responsive-shots/book-flow/${width}x${height}.png`,
+      });
+
+      // Send: opens WhatsApp with the details, then the confirmation screen
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await send.click();
+      const wa = await page.evaluate(
+        () => (window as unknown as { __wa?: string }).__wa,
+      );
+      expect(wa).toContain("wa.me/2349012191846");
+      expect(new URL(wa!).searchParams.get("text")!).toContain(
+        "I understand a 50% deposit confirms the date",
+      );
+      await expect(
+        page.getByRole("heading", { name: /Almost done/ }),
+      ).toBeVisible();
+      // Confirmation: nav back to normal "Book", no strip
+      await expect(
+        nav.getByRole("link", { name: "Book a shoot" }),
+      ).toBeVisible();
+      await expect(strip).toHaveCount(0);
+      expect(await coverageCheck(page)).toEqual([]);
+      await page.screenshot({
+        path: `responsive-shots/book-flow/${width}x${height}-confirmed.png`,
+      });
+    });
+  });
+}

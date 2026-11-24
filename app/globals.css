@@ -186,9 +186,16 @@ html:has([data-booking-bar]) {
   body:has([data-mobile-nav]) {
     padding-bottom: calc(4rem + env(safe-area-inset-bottom));
   }
+  /* Book page summary strip floats above the raised button: reserve room for it too */
+  body:has([data-booking-strip]) {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom) + 4.5rem);
+  }
   /* Keyboard focus / anchor jumps stop above the bar too */
   html:has([data-mobile-nav]) {
     scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+  html:has([data-booking-strip]) {
+    scroll-padding-bottom: calc(9.5rem + env(safe-area-inset-bottom));
   }
 }
 

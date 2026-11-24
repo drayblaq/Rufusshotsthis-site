@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import {
   bookingPolicy,
   packages,
@@ -15,10 +15,11 @@ import {
   type BookingErrors,
   type BookingValues,
 } from "@/lib/booking";
+import { clearBookingBar, setBookingBar } from "@/lib/booking-bar";
 import { bookableDays, slotsFor, todayKey } from "@/lib/schedule";
 import { whatsappLink } from "@/lib/whatsapp";
 import { BookingConfirmation } from "./booking-confirmation";
-import { StickyBar, SummaryCard } from "./booking-summary";
+import { StickyBar, SummaryCard, summaryParts } from "./booking-summary";
 import { ChoiceChips } from "./choice-chips";
 import { DayPicker } from "./day-picker";
 import { FieldError, FieldGroup, inputClass } from "./field";
@@ -65,6 +66,23 @@ export function BookingForm() {
     submitted && days ? validateBooking(values, days) : {};
   const errorCount = Object.keys(errors).length;
   const slots = slotsFor(values.date || undefined);
+
+  // Tell the mobile bottom nav what to show: its centre button becomes "Send"
+  // while the form is on screen, it pulses once everything is valid, and the
+  // strip above it shows "package · date · time".
+  const complete =
+    !!days && Object.keys(validateBooking(values, days)).length === 0;
+  const { pkg, when } = summaryParts(values, days);
+  const summary = [pkg?.name, when].filter(Boolean).join(" · ");
+  useEffect(() => {
+    setBookingBar({
+      active: !sent,
+      complete,
+      summary: sent ? "" : summary,
+      errorCount,
+    });
+  }, [sent, complete, summary, errorCount]);
+  useEffect(() => clearBookingBar, []); // leaving the page resets the nav
 
   function set<K extends keyof BookingValues>(key: K, value: BookingValues[K]) {
     setValues((v) => {

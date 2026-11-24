@@ -57,6 +57,7 @@ export const mobileNavLabels = {
   home: "Home",
   portfolio: "Portfolio",
   book: "Book",
+  send: "Send", // centre button on the Book page (sends the booking on WhatsApp)
   prices: "Prices",
   chat: "Chat",
 } as const;
