@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import { site } from "@/content/site";
 import { siteUrl } from "@/lib/site-url";
@@ -36,6 +38,8 @@ export const metadata: Metadata = {
   openGraph: { siteName: site.name, locale: "en_NG", type: "website" },
 };
 
+const isLiveSite = process.env.VERCEL_ENV === "production";
+
 export const viewport: Viewport = {
   themeColor: "#faf8f5",
   // Lets env(safe-area-inset-*) report real values on notched phones.
@@ -49,7 +53,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${display.variable} ${sans.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        {/* Vercel Web Analytics + Speed Insights: live production site only, so local
+            builds and preview deployments never load the scripts or skew the numbers. */}
+        {isLiveSite && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
+      </body>
     </html>
   );
 }

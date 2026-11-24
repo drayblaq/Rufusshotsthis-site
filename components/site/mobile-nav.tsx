@@ -17,6 +17,7 @@ import {
   getServerBookingBar,
   subscribeBookingBar,
 } from "@/lib/booking-bar";
+import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { whatsappLink } from "@/lib/whatsapp";
 
@@ -205,6 +206,7 @@ export function MobileNav() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${L.chat} on WhatsApp`}
+            onClick={() => trackEvent("whatsapp_chat", { source: "nav" })}
             className={tabClass}
           >
             <span className="grid h-8 place-items-center">

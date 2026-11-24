@@ -15,6 +15,7 @@ import {
   type BookingErrors,
   type BookingValues,
 } from "@/lib/booking";
+import { trackEvent } from "@/lib/analytics";
 import { clearBookingBar, setBookingBar } from "@/lib/booking-bar";
 import { bookableDays, slotsFor, todayKey } from "@/lib/schedule";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -116,6 +117,12 @@ export function BookingForm() {
     const message = bookingMessage(values, days);
     const url = whatsappLink(message);
     // Opened straight from the click, so browsers treat it as a user action.
+    // Option ids only: no name, note or venue text leaves the page.
+    trackEvent("book_send", {
+      package: values.packageId,
+      shootType: values.shootType,
+      location: values.location,
+    });
     window.open(url, "_blank", "noopener,noreferrer");
     setSent({ url, message });
   }

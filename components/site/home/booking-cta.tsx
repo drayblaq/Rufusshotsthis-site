@@ -3,6 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { bookingPolicy, copy } from "@/content/site";
 import { whatsappLink } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "../icons";
+import { WhatsAppLink } from "../whatsapp-link";
 
 /** Closing call to action, right before the footer. */
 export function BookingCta() {
@@ -19,14 +20,13 @@ export function BookingCta() {
           <Link href="/book" className={buttonVariants({ size: "cta" })}>
             {copy.cta.primary}
           </Link>
-          <a
+          <WhatsAppLink
             href={whatsappLink()}
-            target="_blank"
-            rel="noopener noreferrer"
+            source="home"
             className={buttonVariants({ size: "cta", variant: "outline" })}
           >
             <WhatsAppIcon /> {copy.cta.secondary}
-          </a>
+          </WhatsAppLink>
         </div>
         <p className="mt-6 text-xs text-muted-foreground">
           {bookingPolicy.summary}

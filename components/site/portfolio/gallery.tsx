@@ -9,6 +9,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { categories, copy, type CategoryId, type Photo } from "@/content/site";
+import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { Lightbox } from "./lightbox";
 
@@ -57,6 +58,7 @@ export function Gallery({ photos }: { photos: Photo[] }) {
 
   function choose(next: Filter) {
     setChosen(next);
+    trackEvent("portfolio_filter", { category: next });
     // Keep the URL shareable without a navigation or re-render of the page.
     const url = new URL(window.location.href);
     if (next === "all") url.searchParams.delete("category");
@@ -149,7 +151,10 @@ export function Gallery({ photos }: { photos: Photo[] }) {
               <li key={photo.src} hidden={!shown}>
                 <button
                   type="button"
-                  onClick={() => setOpen(pos)}
+                  onClick={() => {
+                    setOpen(pos);
+                    trackEvent("photo_open", { category: photo.category });
+                  }}
                   aria-label={`View ${photo.title} full screen`}
                   className="group relative block aspect-[4/5] w-full overflow-hidden rounded-md bg-muted"
                 >

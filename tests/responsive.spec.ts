@@ -575,3 +575,130 @@ for (const [width, height] of [
     });
   });
 }
+
+/* ------------------------------------------------------------------ */
+/* Analytics events: right names, right properties, no personal data   */
+/* ------------------------------------------------------------------ */
+
+test.describe("analytics events", () => {
+  test.use({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true,
+  });
+
+  type Ev = { name: string; data?: Record<string, unknown> };
+
+  test.beforeEach(async ({ page, context }) => {
+    // Capture what track() sends (it calls window.va) and never leave the site.
+    await page.addInitScript(() => {
+      const w = window as unknown as {
+        __events: unknown[];
+        va: (...a: unknown[]) => void;
+      };
+      w.__events = [];
+      w.va = (kind, payload) => {
+        if (kind === "event") w.__events.push(payload);
+      };
+      window.open = (() => null) as typeof window.open;
+    });
+    await context.route(/wa\.me|whatsapp/, (r) => r.abort());
+  });
+
+  const events = (page: Page) =>
+    page.evaluate(() => (window as unknown as { __events: Ev[] }).__events);
+
+  test("portfolio filter, photo open, home WhatsApp; no Vercel scripts locally", async ({
+    page,
+  }) => {
+    const vercelScripts: string[] = [];
+    page.on("request", (r) => {
+      if (r.url().includes("/_vercel/")) vercelScripts.push(r.url());
+    });
+
+    await open(page, "/portfolio");
+    await page.getByRole("button", { name: /^Sports/ }).click();
+    await page
+      .locator("main ul.grid > li:not([hidden]) button")
+      .first()
+      .click();
+    expect(await events(page)).toEqual([
+      { name: "portfolio_filter", data: { category: "sports" } },
+      { name: "photo_open", data: { category: "sports" } },
+    ]);
+
+    await open(page, "/"); // new page load: event log starts empty again
+    await page
+      .locator("main")
+      .getByRole("link", { name: /Chat on WhatsApp/ })
+      .click();
+    expect(await events(page)).toEqual([
+      { name: "whatsapp_chat", data: { source: "home" } },
+    ]);
+
+    // Local builds never load Vercel's scripts (live production site only)
+    expect(vercelScripts).toEqual([]);
+  });
+
+  test("nav and footer WhatsApp taps report their source", async ({ page }) => {
+    await open(page, "/portfolio");
+    await page
+      .locator("[data-mobile-nav]")
+      .getByRole("link", { name: "Chat on WhatsApp" })
+      .click();
+    await page
+      .locator("footer")
+      .getByRole("link", { name: /WhatsApp/ })
+      .click();
+    const got = await events(page);
+    expect(got).toContainEqual({
+      name: "whatsapp_chat",
+      data: { source: "nav" },
+    });
+    expect(got).toContainEqual({
+      name: "whatsapp_chat",
+      data: { source: "footer" },
+    });
+  });
+
+  test("book_send carries option ids only", async ({ page }) => {
+    await open(page, "/book");
+    const pick = (name: string, value: string) =>
+      page
+        .locator(`label:has(> input[name=${name}][value="${value}"])`)
+        .click();
+    await pick("packageId", "premium");
+    const day = await page
+      .locator("input[name=date]:not(:disabled)")
+      .first()
+      .getAttribute("value");
+    await page.locator(`label:has(> input[name=date][value="${day}"])`).click();
+    await pick("time", "09:00");
+    await pick("shootType", "wedding");
+    await pick("location", "other");
+    await page.locator("#locationDetail").fill("Secret Venue Abuja");
+    await page.locator("#name").fill("Ada Obi");
+    await page.locator("#note").fill("Call me on 0801 234 5678");
+    await page.locator("#note").blur(); // keyboard closes, nav (and Send) come back
+    await page
+      .locator("[data-mobile-nav]")
+      .getByRole("button", { name: /Send booking/ })
+      .click();
+    await expect(
+      page.getByRole("heading", { name: /Almost done/ }),
+    ).toBeVisible();
+
+    const got = await events(page);
+    const send = got.filter((e) => e.name === "book_send");
+    expect(send).toEqual([
+      {
+        name: "book_send",
+        data: { package: "premium", shootType: "wedding", location: "other" },
+      },
+    ]);
+    const all = JSON.stringify(got);
+    for (const personal of ["Ada", "Obi", "Secret Venue", "0801", "Call me"]) {
+      expect(all, `no "${personal}" in analytics`).not.toContain(personal);
+    }
+  });
+});
