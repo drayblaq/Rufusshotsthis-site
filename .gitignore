@@ -47,3 +47,6 @@ next-env.d.ts
 /responsive-shots
 /test-results
 /playwright-report
+
+# example env file is safe to commit
+!.env.example

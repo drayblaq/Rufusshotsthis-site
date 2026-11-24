@@ -13,6 +13,21 @@ const nextConfig: NextConfig = {
     imageSizes: [240],
     qualities: [75],
   },
+  // Photos and logos are already optimised and rarely change: let browsers and
+  // Vercel's CDN keep them for a week (revalidating in the background after),
+  // so repeat visits on slow data don't download them again.
+  async headers() {
+    const cache = [
+      {
+        key: "Cache-Control",
+        value: "public, max-age=604800, stale-while-revalidate=86400",
+      },
+    ];
+    return [
+      { source: "/photos/:path*", headers: cache },
+      { source: "/brand/:path*", headers: cache },
+    ];
+  },
   turbopack: {
     rules: {
       "*.css": {
