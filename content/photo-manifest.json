@@ -1,0 +1,62 @@
+{
+  "placeholder-01": {
+    "width": 1600,
+    "height": 2000,
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZwC7AC0cQNKmqIAA/uTpU5wtYZLplxyawHFeus8/nIwAAAA="
+  },
+  "placeholder-02": {
+    "width": 1600,
+    "height": 2000,
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABwAwCdASoQABQAPu1kqU2ppaQiMAgBMB2JZwC4MDBpKhFnq0AA/uPdnS8drDJdMuN8WEw2eWXeXVYAAAA="
+  },
+  "placeholder-03": {
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABQAQCdASoQAAsAA4BaJQBOgC6gAP7uAuw7mNfKLXppkU6gntcAAA=="
+  },
+  "placeholder-04": {
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoQAAsAA4BaJZQAAxZiJJFAAAD+52oA489mEKsXIulmAAAA"
+  },
+  "placeholder-05": {
+    "width": 1600,
+    "height": 2000,
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAABwAwCdASoQABQAPu1iqk4ppaQiMAgBMB2JZQCdAC0cQNKmqIAA/ugjwiLG5hh0y45D9ttJQ2B031XsfAAAAA=="
+  },
+  "placeholder-06": {
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAsAA4BaJQBOgCPtkWTrQAD+52os/rCwLyWkQWdwAA=="
+  },
+  "placeholder-07": {
+    "width": 1600,
+    "height": 2400,
+    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAwCdASoQABgAPu1orU6ppiSiMAgBMB2JZwC7ACFdB/KhYcggdZwA/tN1EolfbNr8c1w90h3AzyAA"
+  },
+  "placeholder-08": {
+    "width": 1600,
+    "height": 2000,
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZwC06CHhgmRKzsiWYZsUQAD+6ozmhVS7uv4a/uOAAA=="
+  },
+  "placeholder-09": {
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADwAQCdASoQAAsAA4BaJZwAAxZAdPFMHqAA/ushFOZlfI7gAE6e8IAA"
+  },
+  "placeholder-10": {
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAAAwAgCdASoQAAsAA4BaJYwCdAEfbiW9Q855YAD+52MQIAjkhQn7AoAA"
+  },
+  "placeholder-11": {
+    "width": 1600,
+    "height": 2000,
+    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAABwAwCdASoQABQAPu1kqU2ppaQiMAgBMB2JZwC3uBm7wXQclEAA/sPZpE8jcKjGzdD0tBRqaOy7YAAA"
+  },
+  "placeholder-12": {
+    "width": 1600,
+    "height": 1600,
+    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAAAQAgCdASoQABAAA4BaJYwCdAEDfnIqIuRAAP7rE9YijuEzekigTDaxrywAAA=="
+  }
+}

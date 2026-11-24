@@ -30,6 +30,8 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
+        // Site addition: comfortable 44px tap target for primary calls to action.
+        cta: "h-11 gap-2 rounded-full px-5 text-sm",
       },
     },
     defaultVariants: {

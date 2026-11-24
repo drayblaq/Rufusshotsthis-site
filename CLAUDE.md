@@ -6,11 +6,16 @@ Project brief and working rules for this repo. Read this before making changes.
 
 Portfolio + booking website for **RufusShotThis Photography**.
 
-- **Photographer:** Adeyanju Temilade
-  geria. Available to travel.
+- **Photographer:** Adeyanju Temilade Adedeji ("Rufus")
 - **Shoots:** studio portraits, convocation, sports, milestone birthdays, weddings, corporate, events, wildlife.
 - **Goal:** show his work and get people to book him.
 - **Pages (3):** Home, Portfolio, Book.
+
+## Location
+
+- His office (base) is in **Ilorin, Nigeria**. He also shoots in **Lagos** and is available to travel.
+- He can be in Lagos and still take shoots in Ilorin.
+- Site wording: **"Based in Ilorin · Shooting in Lagos and beyond"**. Never describe him as "Lagos-based".
 
 ## Users
 
@@ -21,7 +26,6 @@ Portfolio + booking website for **RufusShotThis Photography**.
 
 - Bright, clean, simple, neat. Minimal colour.
 - Subtle motion only. Always respect `prefers-reduced-motion`.
-- The logo is white script on black, so a **dark version of the logo** is needed for the light site.
 
 ## Stack
 
@@ -51,8 +55,15 @@ Portfolio + booking website for **RufusShotThis Photography**.
 - Instagram: @rufusshotthis
 - TikTok: @rufusshotthis
 
+## Brand assets
+
+- `public/brand/logo-black-bg.png`: white script on a black square. Source for the favicon and social preview image.
+- `public/brand/logo-white.png`: white script, transparent background. Use on dark bands/overlays.
+- `public/brand/logo-dark.png`: near-black version generated from `logo-white.png` for the light site (header).
+- Regenerate derived assets with `npm run logos` (`scripts/make-logos.mjs`).
+
 ## Working rules
 
-- Keep **all editable content** (packages, contact, copy, photo list) in **one place**: `/content` or `/lib/site.ts`. Components read from there; no hard-coded business content in components.
+- Keep **all editable content** (packages, contact, copy, location wording, photo list) in **one place**: `/content` or `/lib/site.ts`. Components read from there; no hard-coded business content in components.
 - Small, clean, commented components.
 - Explain choices briefly as you go.
