@@ -8,8 +8,7 @@ import { SocialLinks } from "./social-links";
 export function Footer() {
   return (
     <footer className="bg-band text-band-foreground">
-      {/* extra bottom padding so the floating WhatsApp button never covers links */}
-      <div className="mx-auto grid max-w-site gap-10 px-gutter pt-14 pb-28 md:grid-cols-[1.2fr_1fr_1fr] md:pb-16">
+      <div className="mx-auto grid max-w-site gap-10 px-gutter pt-14 pb-14 md:grid-cols-[1.2fr_1fr_1fr] md:pb-16">
         <div>
           <Logo tone="light" className="h-14 w-auto" />
           <p className="mt-4 max-w-xs text-base">{site.location.line}</p>

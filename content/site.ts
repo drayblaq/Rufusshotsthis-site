@@ -49,6 +49,16 @@ export const contact = {
 export const whatsappMessages = {
   general:
     "Hi Rufus, I found you on your website and I'd like to ask about a shoot.",
+  chat: "Hi Rufus! I have a quick question about a shoot.",
+} as const;
+
+/** Labels for the mobile bottom navigation bar. */
+export const mobileNavLabels = {
+  home: "Home",
+  portfolio: "Portfolio",
+  book: "Book",
+  prices: "Prices",
+  chat: "Chat",
 } as const;
 
 /* ------------------------------------------------------------------ */

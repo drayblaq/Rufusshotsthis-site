@@ -33,15 +33,13 @@ export function Hero({ photos }: { photos: Photo[] }) {
     <section
       aria-roledescription="carousel"
       aria-label="Featured photos"
-      className="mx-auto grid max-w-site grid-cols-[minmax(0,1fr)] gap-x-12 px-gutter pt-8 pb-section lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-center lg:pt-14"
+      className="mx-auto grid max-w-site grid-cols-[minmax(0,1fr)] gap-x-12 px-gutter pt-5 pb-section lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-center lg:pt-14"
     >
       {/* Intro text */}
       <div className="lg:col-start-1">
         <p className="eyebrow">{copy.hero.eyebrow}</p>
-        <h1 className="mt-3 text-[2.6rem] leading-[1.05] sm:text-5xl lg:text-6xl">
-          {copy.hero.title}
-        </h1>
-        <p className="mt-4 max-w-md text-muted-foreground">{copy.hero.intro}</p>
+        <h1 className="mt-2 text-h1">{copy.hero.title}</h1>
+        <p className="mt-3 max-w-md text-muted-foreground">{copy.hero.intro}</p>
       </div>
 
       {/* Photos: lens ring, or simple carousel for reduced motion */}
@@ -49,7 +47,7 @@ export function Hero({ photos }: { photos: Photo[] }) {
         tabIndex={0}
         onKeyDown={onKeyDown}
         aria-label="Featured photos. Use the left and right arrow keys to browse."
-        className="-mx-gutter mt-8 min-w-0 rounded-md focus-visible:outline-offset-4 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:mx-0 lg:mt-0"
+        className="-mx-gutter mt-5 min-w-0 rounded-md focus-visible:outline-offset-4 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:mx-0 lg:mt-0"
       >
         <div className="motion-reduce:hidden">
           <LensRing photos={photos} index={index} onIndexChange={setIndex} />
@@ -66,7 +64,7 @@ export function Hero({ photos }: { photos: Photo[] }) {
       {/* Caption for the current photo + controls ("beside" it on desktop).
           On phones the arrows sit on the LEFT so the floating WhatsApp button
           (bottom-right) can never cover them. */}
-      <div className="mt-6 flex flex-row-reverse items-end justify-end gap-5 lg:col-start-1 lg:mt-10 lg:flex-row lg:justify-between">
+      <div className="mt-3 flex flex-row-reverse items-end justify-end gap-5 lg:col-start-1 lg:mt-10 lg:flex-row lg:justify-between">
         {/* key={index} replays the small fade-in when the photo changes */}
         <div
           key={index}

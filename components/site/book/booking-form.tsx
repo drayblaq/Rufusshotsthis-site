@@ -118,6 +118,8 @@ export function BookingForm() {
   return (
     <form id="booking-form" noValidate onSubmit={onSubmit} className="mt-8">
       {/* 1. Package cards */}
+      {/* #packages: target of the mobile nav "Prices" tab */}
+      <div id="packages" />
       <FieldGroup
         id="field-packageId"
         legend="1. Choose a package"

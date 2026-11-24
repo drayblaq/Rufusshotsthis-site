@@ -168,3 +168,30 @@ body:has([data-hide-fab]) [data-whatsapp-fab] {
 html:has([data-booking-bar]) {
   scroll-padding-bottom: 8rem;
 }
+
+/* ------------------------------------------------------------------ */
+/* Mobile bottom nav (components/site/mobile-nav.tsx), phones only     */
+/* ------------------------------------------------------------------ */
+@media (width < 48rem) {
+  /* Reserve space so no content or footer link is ever hidden behind the bar */
+  body:has([data-mobile-nav]) {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
+  /* Keyboard focus / anchor jumps stop above the bar too */
+  html:has([data-mobile-nav]) {
+    scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Slow idle pulse around the Book shutter button */
+@keyframes shutter-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}

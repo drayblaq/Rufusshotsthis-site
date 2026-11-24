@@ -1,5 +1,6 @@
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
+import { MobileNav } from "@/components/site/mobile-nav";
 import { WhatsAppFab } from "@/components/site/whatsapp-fab";
 
 /** Shared chrome for every page in the (site) group. */
@@ -18,6 +19,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       </main>
       <Footer />
       <WhatsAppFab />
+      <MobileNav />
     </>
   );
 }
