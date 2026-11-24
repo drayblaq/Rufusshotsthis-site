@@ -33,6 +33,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#faf8f5",
+  // Lets env(safe-area-inset-*) report real values on notched phones.
+  viewportFit: "cover",
 };
 
 /** Root layout: fonts + global styles. Header/footer live in app/(site)/layout.tsx. */

@@ -12,13 +12,11 @@ export function Footer() {
       <div className="mx-auto grid max-w-site gap-10 px-gutter pt-14 pb-28 md:grid-cols-[1.2fr_1fr_1fr] md:pb-16">
         <div>
           <Logo tone="light" className="h-14 w-auto" />
-          <p className="mt-4 max-w-xs text-sm opacity-75">
-            {site.location.line}
-          </p>
+          <p className="mt-4 max-w-xs text-base">{site.location.line}</p>
         </div>
 
         <nav aria-label="Footer">
-          <p className="mb-3 text-xs tracking-[0.2em] uppercase opacity-60">
+          <p className="mb-3 text-xs font-semibold tracking-[0.2em] uppercase">
             Pages
           </p>
           <ul className="space-y-1">
@@ -26,7 +24,7 @@ export function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="inline-flex min-h-11 items-center text-sm opacity-85 hover:opacity-100"
+                  className="inline-flex min-h-11 items-center text-base hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -36,14 +34,14 @@ export function Footer() {
         </nav>
 
         <div>
-          <p className="mb-3 text-xs tracking-[0.2em] uppercase opacity-60">
+          <p className="mb-3 text-xs font-semibold tracking-[0.2em] uppercase">
             Contact
           </p>
           <SocialLinks className="space-y-1" />
         </div>
       </div>
       <div className="border-t border-white/10">
-        <p className="mx-auto max-w-site px-gutter py-5 text-xs opacity-60">
+        <p className="mx-auto max-w-site px-gutter py-5 text-sm">
           © <CopyrightYear /> {site.name}. {copy.footer.rights}
         </p>
       </div>

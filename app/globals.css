@@ -58,6 +58,17 @@
   --spacing-header: 4rem;
   --container-site: 72rem;
 
+  /* Fluid type: scales smoothly with the viewport, no jumps at breakpoints */
+  --text-h1: clamp(2.25rem, 1.55rem + 3.4vw, 3.75rem);
+  --text-h1--line-height: 1.05;
+  --text-h2: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.3rem, 1.15rem + 0.7vw, 1.6rem);
+  --text-h3--line-height: 1.2;
+
+  /* Fluid gap for grids and stacks */
+  --spacing-fluid: clamp(0.75rem, 0.5rem + 1.5vw, 1.5rem);
+
   /* Motion: one easing, a few durations. Subtle only. */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 150ms;
@@ -85,7 +96,9 @@
   --secondary: #f1ede7;
   --secondary-foreground: var(--ink);
   --muted: #f1ede7;
-  --muted-foreground: #6b625a; /* 5.6:1 on paper, passes AA */
+  /* No grey text (client request): secondary text is near-black too; hierarchy comes
+     from size and weight instead. */
+  --muted-foreground: var(--ink);
   --accent: #f1ede7;
   --accent-foreground: var(--ink);
   --destructive: #b42318;
@@ -100,7 +113,8 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply bg-background font-sans text-foreground;
+    /* Medium weight body text reads clearly on phones in bright light */
+    @apply bg-background font-sans font-medium text-foreground;
     /* Anchor jumps land below the sticky header */
     scroll-padding-top: var(--spacing-header);
   }
@@ -110,7 +124,7 @@
   h1,
   h2,
   h3 {
-    @apply font-display font-medium tracking-tight text-balance;
+    @apply font-display font-semibold tracking-tight text-balance;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
@@ -121,9 +135,21 @@
   }
 }
 
+/* Page container from the Responsive standards: fluid, never a fixed width */
+@utility container-site {
+  width: min(92%, 72rem);
+  margin-inline: auto;
+}
+
+/* Screens with their own WhatsApp action (Book page bar, booking confirmation)
+   mark themselves data-hide-fab, so the floating button can never cover it. */
+body:has([data-hide-fab]) [data-whatsapp-fab] {
+  display: none;
+}
+
 /* Small eyebrow label used above section headings */
 @utility eyebrow {
-  @apply text-xs font-medium tracking-[0.14em] text-highlight uppercase sm:tracking-[0.2em];
+  @apply text-xs font-semibold tracking-[0.14em] text-highlight uppercase sm:tracking-[0.2em];
 }
 
 /* Respect reduced motion everywhere: kill transitions/animations site-wide. */
@@ -136,4 +162,9 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Keep fields scrolled into view clear of the Book page sticky bar */
+html:has([data-booking-bar]) {
+  scroll-padding-bottom: 8rem;
 }

@@ -115,12 +115,7 @@ export function Gallery({
               )}
             >
               {c.label}
-              <span
-                className={cn(
-                  "text-xs tabular-nums",
-                  active ? "opacity-70" : "text-muted-foreground",
-                )}
-              >
+              <span className={cn("text-xs tabular-nums", "font-semibold")}>
                 {counts[c.id] ?? 0}
               </span>
             </button>

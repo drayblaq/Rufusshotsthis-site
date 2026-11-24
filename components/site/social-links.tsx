@@ -31,7 +31,7 @@ export function SocialLinks({ className }: { className?: string }) {
             href={href}
             target={href.startsWith("http") ? "_blank" : undefined}
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center gap-3 text-sm opacity-85 transition-opacity hover:opacity-100"
+            className="inline-flex min-h-11 items-center gap-3 text-base hover:underline"
           >
             <Icon className="size-5 shrink-0" />
             <span className="break-all">{label}</span>

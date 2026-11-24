@@ -94,7 +94,7 @@ export function Lightbox({
       {photo && (
         <>
           <div className="flex items-center justify-between px-4 py-3">
-            <p className="text-sm tabular-nums opacity-75">
+            <p className="text-base font-semibold tabular-nums">
               {index! + 1} / {count}
             </p>
             <button
@@ -155,7 +155,7 @@ export function Lightbox({
 
           <div className="px-4 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))] text-center">
             <p className="font-display text-xl">{photo.title}</p>
-            <p className="mt-0.5 text-xs tracking-[0.2em] uppercase opacity-60">
+            <p className="mt-0.5 text-xs font-semibold tracking-[0.2em] uppercase">
               {categoryLabel(photo.category)}
             </p>
           </div>

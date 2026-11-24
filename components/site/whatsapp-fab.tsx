@@ -12,6 +12,7 @@ export function WhatsAppFab() {
   return (
     <a
       href={whatsappLink()}
+      data-whatsapp-fab
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Chat on WhatsApp (${contact.whatsapp.display})`}

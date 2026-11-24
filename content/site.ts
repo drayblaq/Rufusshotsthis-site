@@ -175,6 +175,57 @@ export const bookingPolicy = {
 } as const;
 
 /* ------------------------------------------------------------------ */
+/* Booking form: options, schedule, copy                               */
+/* ------------------------------------------------------------------ */
+
+/** Shoot types offered in the booking form. */
+export const shootTypes = [
+  { id: "portraits", label: "Portraits" },
+  { id: "convocation", label: "Convocation" },
+  { id: "sports", label: "Sports" },
+  { id: "birthday", label: "Birthday" },
+  { id: "wedding", label: "Wedding" },
+  { id: "corporate", label: "Corporate" },
+  { id: "event", label: "Event" },
+  { id: "wildlife", label: "Wildlife" },
+] as const;
+
+export const shootLocations = [
+  { id: "ilorin", label: "Ilorin" },
+  { id: "lagos", label: "Lagos" },
+  { id: "other", label: "Other" },
+] as const;
+
+/**
+ * Availability. Rufus edits this to block days or times.
+ * Dates are "YYYY-MM-DD" in Nigerian time (Africa/Lagos).
+ */
+export const schedule = {
+  timeZone: "Africa/Lagos",
+  daysAhead: 28, // how many days to show in the day picker
+  minNoticeDays: 1, // 1 = earliest booking is tomorrow
+  timeSlots: ["09:00", "11:00", "13:00", "15:00", "17:00"], // 24h, shown as "9:00 am"
+  closedWeekdays: [] as number[], // 0 = Sunday ... 6 = Saturday, e.g. [0] to never work Sundays
+  unavailableDates: ["2026-12-25", "2026-12-26", "2027-01-01"] as string[], // whole day off/booked
+  unavailableSlots: {
+    // already-booked times on a given day, e.g. "2026-11-29": ["09:00", "11:00"]
+  } as Record<string, string[]>,
+};
+
+export const bookingCopy = {
+  title: "Book a shoot",
+  intro:
+    "Choose a package, pick a day and time, and send your request on WhatsApp. Rufus will confirm availability.",
+  depositLine: `I understand a ${bookingPolicy.depositPercent}% deposit confirms the date`,
+  confirm: "Confirm on WhatsApp",
+  nextSteps: [
+    "Rufus confirms availability with you on WhatsApp.",
+    "He sends the bank transfer details there.",
+    `Your date is confirmed once the ${bookingPolicy.depositPercent}% deposit is paid.`,
+  ],
+} as const;
+
+/* ------------------------------------------------------------------ */
 /* Copy                                                                */
 /* ------------------------------------------------------------------ */
 

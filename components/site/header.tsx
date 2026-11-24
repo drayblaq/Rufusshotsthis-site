@@ -14,7 +14,7 @@ import { NavLink } from "./nav-link";
 export function Header() {
   const links = nav.filter((item) => item.href !== "/book"); // Book is the button
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/95">
+    <header className="sticky top-0 z-40 border-b bg-background/95 pt-[env(safe-area-inset-top)]">
       <div className="mx-auto flex h-header max-w-site items-center justify-between gap-4 px-gutter">
         <Link
           href="/"
@@ -35,7 +35,7 @@ export function Header() {
           ))}
           <Link
             href="/book"
-            className={cn(buttonVariants({ size: "cta" }), "h-10 px-4")}
+            className={cn(buttonVariants({ size: "cta" }), "px-4")}
           >
             Book
           </Link>

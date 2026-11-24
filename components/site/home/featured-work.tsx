@@ -59,7 +59,7 @@ export function FeaturedWork() {
               </div>
               <p className="mt-2 flex items-center justify-between text-sm">
                 {category.label}
-                <ArrowRight className="size-4 opacity-50 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </p>
             </Link>
           </li>

@@ -67,3 +67,28 @@ Portfolio + booking website for **RufusShotThis Photography**.
 - Keep **all editable content** (packages, contact, copy, location wording, photo list) in **one place**: `/content` or `/lib/site.ts`. Components read from there; no hard-coded business content in components.
 - Small, clean, commented components.
 - Explain choices briefly as you go.
+
+## Responsive standards
+
+Rules for every page and component from now on.
+
+1. **Fluid, not fixed.** No fixed pixel widths for layout. Use `max-width`, `%`, `min()`, `max()`, `clamp()`. Page container: `width: min(92%, 72rem); margin-inline: auto;`.
+2. **Container queries.** Reusable components (package card, photo card, booking card) respond to their own container with `@container`, not just the viewport.
+3. **Modern CSS first.** Grid and Flexbox, with minimal JS for layout.
+4. **Fluid type and spacing.** `clamp()` for headings, section padding and gaps. No jumps between breakpoints.
+5. **Images and accessibility.**
+   - `next/image` with correct `sizes`, WebP, lazy loading except the first image.
+   - Touch targets at least 44×44px.
+   - Visible focus states and full keyboard support.
+   - Respect `prefers-reduced-motion`.
+   - Strong contrast.
+   - No horizontal scrolling at any width.
+
+### Mobile-specific rules
+
+- Design at **360px first**; test at **320, 360, 390, 412, 768, 1024 and 1440**.
+- Use `dvh` instead of `vh`.
+- Respect safe areas with `env(safe-area-inset-*)` for the sticky header and the floating WhatsApp button.
+- Form inputs use a **16px minimum font size** so iOS does not zoom.
+- Anything draggable or swipeable uses `touch-action` so vertical page scrolling still works.
+- Never let the floating WhatsApp button cover a primary action.
