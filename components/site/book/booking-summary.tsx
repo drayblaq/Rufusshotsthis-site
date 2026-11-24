@@ -60,7 +60,7 @@ export function StickyBar({
     <div
       data-booking-bar
       data-hide-fab
-      className="sticky bottom-0 z-30 -mx-[4vw] mt-6 border-t-2 border-ink bg-background px-[4vw] pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden"
+      className="sticky bottom-0 z-30 -mx-[4.3478%] mt-6 border-t-2 border-ink bg-background px-[4.3478%] pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden"
     >
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <div aria-live="polite" className="min-w-0 text-sm leading-snug">

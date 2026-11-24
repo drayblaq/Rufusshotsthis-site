@@ -4,8 +4,10 @@ import { site } from "@/content/site";
 import "./globals.css";
 
 /*
- * Fonts (both variable = one small file each, self-hosted by next/font, no runtime
- * request to Google):
+ * Fonts: self-hosted by next/font (no runtime request to Google), display: swap.
+ * Both are VARIABLE fonts: one file per font covers every weight used
+ * (Jost 500-800, Cormorant 500-600). Listing static weights would download one file
+ * per weight, so variable is the lightest option.
  * - Cormorant Garamond (display): a high-contrast Garamond with hairline strokes that
  *   echo the fine pen strokes of the script logo. Elegant at heading sizes.
  * - Jost (body/UI): a clean geometric sans close to the "PHOTOGRAPHY" lettering

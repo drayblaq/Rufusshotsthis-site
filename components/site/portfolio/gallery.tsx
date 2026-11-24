@@ -1,8 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { categories, copy, type CategoryId, type Photo } from "@/content/site";
 import { cn } from "@/lib/utils";
 import { Lightbox } from "./lightbox";
@@ -12,27 +17,28 @@ type Filter = CategoryId | "all";
 const isCategory = (v: string | null): v is CategoryId =>
   categories.some((c) => c.id === v);
 
-/** Reads ?category= from the URL (links from the Home page use it). */
-export function GalleryFromUrl({ photos }: { photos: Photo[] }) {
-  const param = useSearchParams().get("category");
-  return (
-    <Gallery photos={photos} initial={isCategory(param) ? param : "all"} />
-  );
-}
+/**
+ * ?category= from the URL (links from the Home page use it). Read with
+ * useSyncExternalStore: "all" in the prerendered HTML, the real value after
+ * hydration. One component tree throughout, so no image is ever remounted
+ * (a Suspense fallback swap would remount every photo and delay the first paint).
+ */
+const subscribeUrl = (onChange: () => void) => {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+};
+const urlCategory = () =>
+  new URLSearchParams(window.location.search).get("category");
 
 /**
- * Filterable masonry grid + lightbox.
+ * Filterable photo grid + lightbox.
  * Filtering hides photos (the `hidden` attribute) rather than unmounting them, so
  * already-loaded images never re-download; shown photos fade in briefly.
  */
-export function Gallery({
-  photos,
-  initial = "all",
-}: {
-  photos: Photo[];
-  initial?: Filter;
-}) {
-  const [filter, setFilter] = useState<Filter>(initial);
+export function Gallery({ photos }: { photos: Photo[] }) {
+  const fromUrl = useSyncExternalStore(subscribeUrl, urlCategory, () => null);
+  const [chosen, setChosen] = useState<Filter | null>(null); // a chip the visitor tapped
+  const filter: Filter = chosen ?? (isCategory(fromUrl) ? fromUrl : "all");
   const [open, setOpen] = useState<number | null>(null);
   const gridRef = useRef<HTMLUListElement>(null);
   const firstRender = useRef(true);
@@ -50,7 +56,7 @@ export function Gallery({
   }, [photos]);
 
   function choose(next: Filter) {
-    setFilter(next);
+    setChosen(next);
     // Keep the URL shareable without a navigation or re-render of the page.
     const url = new URL(window.location.href);
     if (next === "all") url.searchParams.delete("category");
@@ -94,7 +100,7 @@ export function Gallery({
       <div
         role="group"
         aria-label="Filter photos by category"
-        className="-mx-gutter flex [scrollbar-width:none] gap-2 overflow-x-auto px-gutter pb-1"
+        className="-mx-[4.3478%] flex touch-pan-x touch-pan-y [scrollbar-width:none] gap-2 overflow-x-auto px-[4.3478%] pb-1"
       >
         {[
           { id: "all" as const, label: copy.portfolio.all }, // Only categories that have photos get a chip (e.g. Weddings appears once added).
@@ -108,7 +114,7 @@ export function Gallery({
               aria-pressed={active}
               onClick={() => choose(c.id)}
               className={cn(
-                "inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border px-4 text-sm transition-colors duration-(--duration-fast)",
+                "inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border px-4 text-sm transition-colors duration-(--duration-fast)",
                 active
                   ? "border-ink bg-ink text-paper"
                   : "bg-background hover:border-ink/40",
@@ -128,38 +134,44 @@ export function Gallery({
         Showing {visible.length} photos in {label}.
       </p>
 
-      {/* CSS-columns masonry: no JS layout, photos keep their natural shape */}
-      <ul ref={gridRef} className="mt-6 columns-2 gap-3 sm:gap-4 lg:columns-3">
-        {photos.map((photo) => {
-          const shown = filter === "all" || photo.category === filter;
-          const pos = visible.indexOf(photo);
-          return (
-            <li
-              key={photo.src}
-              hidden={!shown}
-              className="mb-3 break-inside-avoid sm:mb-4"
-            >
-              <button
-                type="button"
-                onClick={() => setOpen(pos)}
-                aria-label={`View ${photo.title} full screen`}
-                className="group block w-full overflow-hidden rounded-md bg-muted"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  sizes="(min-width: 1024px) 23rem, 50vw"
-                  placeholder="blur"
-                  blurDataURL={photo.blurDataURL}
-                  className="h-auto w-full transition-transform duration-(--duration-slow) ease-(--ease-soft) group-hover:scale-[1.02]"
-                />
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      {/* Row-by-row grid (left to right), so the lightbox's "next" follows what the eye
+          reads and the first row is known to be above the fold (loaded eagerly).
+          Container query: 3 columns once the gallery itself is wide enough. */}
+      <div className="@container">
+        <ul
+          ref={gridRef}
+          className="mt-6 grid grid-cols-2 gap-fluid @3xl:grid-cols-3"
+        >
+          {photos.map((photo, i) => {
+            const shown = filter === "all" || photo.category === filter;
+            const pos = visible.indexOf(photo);
+            return (
+              <li key={photo.src} hidden={!shown}>
+                <button
+                  type="button"
+                  onClick={() => setOpen(pos)}
+                  aria-label={`View ${photo.title} full screen`}
+                  className="group relative block aspect-[4/5] w-full overflow-hidden rounded-md bg-muted"
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(min-width: 1024px) 23rem, (min-width: 768px) 33vw, 50vw"
+                    // First row (2 on phones) is above the fold: load right away, the first
+                    // at high priority. Every other photo lazy-loads as it scrolls in.
+                    loading={i < 2 ? "eager" : "lazy"}
+                    fetchPriority={i === 0 ? "high" : "auto"}
+                    placeholder="blur"
+                    blurDataURL={photo.blurDataURL}
+                    className="object-cover object-[50%_30%] transition-transform duration-(--duration-slow) ease-(--ease-soft) group-hover:scale-[1.02]"
+                  />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       {visible.length === 0 && (
         <p className="py-12 text-center text-muted-foreground">

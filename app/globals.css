@@ -59,7 +59,8 @@
   --container-site: 72rem;
 
   /* Fluid type: scales smoothly with the viewport, no jumps at breakpoints */
-  --text-h1: clamp(2.25rem, 1.55rem + 3.4vw, 3.75rem);
+  /* h1 also scales with screen HEIGHT (dvh) so short phones keep room for the hero photo */
+  --text-h1: clamp(2rem, min(1.55rem + 3.4vw, 5.6dvh), 3.75rem);
   --text-h1--line-height: 1.05;
   --text-h2: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
   --text-h2--line-height: 1.1;
@@ -136,6 +137,7 @@
 }
 
 /* Page container from the Responsive standards: fluid, never a fixed width */
+/* Full-bleed child inside it (below 1252px): -mx-[4.3478%] = 4% gutter / 92% */
 @utility container-site {
   width: min(92%, 72rem);
   margin-inline: auto;
@@ -173,6 +175,13 @@ html:has([data-booking-bar]) {
 /* Mobile bottom nav (components/site/mobile-nav.tsx), phones only     */
 /* ------------------------------------------------------------------ */
 @media (width < 48rem) {
+  :root:has([data-mobile-nav]) {
+    --mobile-nav-h: calc(4rem + env(safe-area-inset-bottom));
+  }
+  /* Header text links duplicate the bottom nav: hide them (keeps the header fitting at large text sizes) */
+  body:has([data-mobile-nav]) [data-dup-nav] {
+    display: none;
+  }
   /* Reserve space so no content or footer link is ever hidden behind the bar */
   body:has([data-mobile-nav]) {
     padding-bottom: calc(4rem + env(safe-area-inset-bottom));

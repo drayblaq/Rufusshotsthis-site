@@ -31,7 +31,8 @@ const buttonVariantsBase = cva(
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
         // Site addition: comfortable 44px tap target for primary calls to action.
-        cta: "h-11 gap-2 rounded-full px-5 text-sm",
+        // min-h + wrapping text: never wider than the screen, even at 200% text size
+        cta: "h-auto min-h-11 max-w-full gap-2 rounded-full px-5 py-2 text-center text-sm whitespace-normal",
       },
     },
     defaultVariants: {

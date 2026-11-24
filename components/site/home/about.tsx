@@ -4,10 +4,10 @@ import { bio, site } from "@/content/site";
 export function About() {
   return (
     <section aria-labelledby="about-title" className="border-y bg-card">
-      <div className="mx-auto grid max-w-site gap-6 px-gutter py-section md:grid-cols-[1fr_1.4fr] md:gap-16">
+      <div className="container-site grid gap-[clamp(1.5rem,5vw,4rem)] py-section md:grid-cols-[1fr_1.4fr]">
         <div>
           <p className="eyebrow">About</p>
-          <h2 id="about-title" className="mt-2 text-3xl sm:text-4xl">
+          <h2 id="about-title" className="mt-2 text-h2">
             {bio.heading}
           </h2>
           <p className="mt-4 text-sm text-muted-foreground">

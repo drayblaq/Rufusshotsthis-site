@@ -14,20 +14,22 @@ import { NavLink } from "./nav-link";
 export function Header() {
   const links = nav.filter((item) => item.href !== "/book"); // Book is the button
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/95 pt-[env(safe-area-inset-top)]">
-      <div className="mx-auto flex h-header max-w-site items-center justify-between gap-4 px-gutter">
+    <header className="sticky top-0 z-40 border-b bg-background pt-[env(safe-area-inset-top)]">
+      <div className="container-site flex min-h-header flex-wrap items-center justify-between gap-x-4">
         <Link
           href="/"
           aria-label="RufusShotThis Photography, home"
-          className="shrink-0"
+          className="inline-flex min-h-11 shrink-0 items-center"
         >
           <Logo className="h-10 w-auto md:h-12" />
         </Link>
 
-        <nav aria-label="Main" className="flex items-center gap-5 sm:gap-7">
+        <nav aria-label="Main" className="flex items-center gap-3 sm:gap-5">
           {links.map((item) => (
             <span
               key={item.href}
+              // data-dup-nav: hidden on phones where the bottom nav already has these links
+              data-dup-nav
               className={item.href === "/" ? "hidden sm:inline" : undefined}
             >
               <NavLink href={item.href}>{item.label}</NavLink>

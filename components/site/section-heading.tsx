@@ -13,7 +13,7 @@ export function SectionHeading({
   return (
     <div className={className}>
       <p className="eyebrow">{eyebrow}</p>
-      <h2 id={id} className="mt-2 text-3xl sm:text-4xl">
+      <h2 id={id} className="mt-2 text-h2">
         {title}
       </h2>
     </div>

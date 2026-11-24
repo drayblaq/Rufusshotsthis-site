@@ -126,7 +126,7 @@ export function LensRing({
     <div
       ref={stageRef}
       // pan-y: vertical page scroll still works; we only take horizontal drags.
-      className="relative h-(--stage-h) touch-pan-y overflow-hidden select-none [--card-h:calc(var(--card-w)*1.25)] [--card-w:min(62vw,17rem)] [--ring-r:calc(var(--card-w)*2.3)] [--stage-h:calc(var(--card-h)+var(--card-w)*0.36+1rem)] lg:[--card-w:19rem]"
+      className="relative h-(--stage-h) touch-pan-y overflow-hidden select-none [--card-h:calc(var(--card-w)*1.25)] [--card-w:min(62vw,17rem,calc((100cqh_-_1rem)/1.61))] [--ring-r:calc(var(--card-w)*2.3)] [--stage-h:calc(var(--card-h)+var(--card-w)*0.36+1rem)] md:[--card-w:min(62vw,17rem)] lg:[--card-w:19rem]"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -174,6 +174,7 @@ export function LensRing({
               blurDataURL={photo.blurDataURL}
               // Only the first (visible on load) photo is preloaded.
               preload={i === 0}
+              fetchPriority={i === 0 ? "high" : "auto"}
               draggable={false}
               className="pointer-events-none object-cover"
             />

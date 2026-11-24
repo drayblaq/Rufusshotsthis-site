@@ -41,7 +41,8 @@ export function PackagePicker({
                 className="sr-only"
               />
               <div className="flex items-start justify-between gap-3">
-                <div>
+                {/* min-w-0 + price sized from the card width (cqi): fits even at 200% text */}
+                <div className="min-w-0">
                   <p className="text-lg font-semibold">
                     {p.name}
                     {p.popular && (
@@ -50,7 +51,7 @@ export function PackagePicker({
                       </span>
                     )}
                   </p>
-                  <p className="mt-1 font-display text-[2.5rem] leading-none font-semibold">
+                  <p className="mt-1 font-display text-[min(2.5rem,14cqi)] leading-none font-semibold">
                     {formatNaira(p.price)}
                   </p>
                 </div>

@@ -8,8 +8,8 @@ import { WhatsAppIcon } from "../icons";
 export function BookingCta() {
   return (
     <section aria-labelledby="cta-title" className="bg-secondary">
-      <div className="mx-auto max-w-2xl px-gutter py-section text-center">
-        <h2 id="cta-title" className="text-4xl sm:text-5xl">
+      <div className="container-site max-w-2xl py-section text-center">
+        <h2 id="cta-title" className="text-h1">
           {copy.cta.title}
         </h2>
         <p className="mx-auto mt-4 max-w-md text-muted-foreground">

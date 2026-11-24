@@ -25,6 +25,8 @@ const FAB_DROP = 4; // FAB centre sits 4px below the bar's top edge, so most of 
 const NOTCH_R = FAB / 2 + 3 + 6; // radius + clay ring + breathing gap
 
 const SLOTS = 5; // the pill moves in fifths of the bar
+// The bar is a fixed-size control (px), so its tap-target minimums and label sizes are
+// capped in px too: at 200% text, rem-based minimums (5 x 96px) would overflow a phone.
 
 /** True while a text-like field has focus or the visual viewport has shrunk (keyboard). */
 function keyboardSnapshot(): boolean {
@@ -61,7 +63,7 @@ export function MobileNav() {
     pathname === "/" ? 0 : pathname.startsWith("/portfolio") ? 1 : -1;
 
   const tabClass =
-    "relative z-10 flex min-h-12 min-w-12 flex-col items-center justify-start gap-1 rounded-xl pt-2 outline-offset-[-3px] focus-visible:outline-2 focus-visible:outline-ink";
+    "relative z-10 flex min-h-[48px] min-w-[48px] flex-col items-center justify-start gap-1 rounded-xl pt-2 outline-offset-[-3px] focus-visible:outline-2 focus-visible:outline-ink";
 
   return (
     <nav
@@ -142,7 +144,7 @@ export function MobileNav() {
                 className="size-8 transition-transform duration-300 ease-(--ease-soft) group-active:rotate-90"
               />
             </span>
-            <span className="text-xs leading-none font-extrabold">
+            <span className="text-[clamp(12px,0.75rem,14px)] leading-none font-extrabold">
               {L.book}
             </span>
           </Link>
@@ -170,7 +172,9 @@ export function MobileNav() {
                 className="size-[22px]"
               />
             </span>
-            <span className="text-xs leading-none font-bold">{L.chat}</span>
+            <span className="text-[clamp(12px,0.75rem,14px)] leading-none font-bold">
+              {L.chat}
+            </span>
           </a>
         </li>
       </ul>
@@ -207,7 +211,7 @@ function Tab({
         </span>
         <span
           className={cn(
-            "text-xs leading-none",
+            "text-[clamp(12px,0.75rem,14px)] leading-none",
             current ? "font-extrabold" : "font-bold",
           )}
         >

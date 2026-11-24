@@ -8,7 +8,7 @@ import { SocialLinks } from "./social-links";
 export function Footer() {
   return (
     <footer className="bg-band text-band-foreground">
-      <div className="mx-auto grid max-w-site gap-10 px-gutter pt-14 pb-14 md:grid-cols-[1.2fr_1fr_1fr] md:pb-16">
+      <div className="container-site grid gap-[clamp(2rem,5vw,2.5rem)] py-[clamp(2.5rem,7vw,4rem)] md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <Logo tone="light" className="h-14 w-auto" />
           <p className="mt-4 max-w-xs text-base">{site.location.line}</p>
@@ -23,7 +23,7 @@ export function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="inline-flex min-h-11 items-center text-base hover:underline"
+                  className="inline-flex min-h-11 min-w-11 items-center text-base hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -40,7 +40,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <p className="mx-auto max-w-site px-gutter py-5 text-sm">
+        <p className="container-site py-5 text-sm">
           © <CopyrightYear /> {site.name}. {copy.footer.rights}
         </p>
       </div>

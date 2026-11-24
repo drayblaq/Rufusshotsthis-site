@@ -42,3 +42,8 @@ next-env.d.ts
 
 # original full-size photos (optimised copies live in public/photos)
 /photos-raw
+
+# responsive audit output (Playwright)
+/responsive-shots
+/test-results
+/playwright-report

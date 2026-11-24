@@ -77,7 +77,10 @@ export function Lightbox({
   }
 
   const navBtn =
-    "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/70";
+    "absolute top-1/2 z-10 hidden size-11 -translate-y-1/2 place-items-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/70 md:grid";
+  // Phones: one-handed controls in the thumb zone at the bottom
+  const thumbBtn =
+    "grid size-12 place-items-center rounded-full bg-white/10 text-white transition-colors active:bg-white/25";
 
   return (
     <dialog
@@ -101,7 +104,7 @@ export function Lightbox({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="grid size-11 place-items-center rounded-full hover:bg-white/10"
+              className="hidden size-11 place-items-center rounded-full hover:bg-white/10 md:grid"
             >
               <X className="size-6" />
             </button>
@@ -158,6 +161,36 @@ export function Lightbox({
             <p className="mt-0.5 text-xs font-semibold tracking-[0.2em] uppercase">
               {categoryLabel(photo.category)}
             </p>
+            <div className="mt-3 flex items-center justify-center gap-6 md:hidden">
+              {count > 1 && (
+                <button
+                  type="button"
+                  onClick={() => step(-1)}
+                  aria-label="Previous photo"
+                  className={thumbBtn}
+                >
+                  <ChevronLeft className="size-6" />
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close"
+                className="grid size-14 place-items-center rounded-full bg-white text-ink"
+              >
+                <X className="size-6" strokeWidth={2.5} />
+              </button>
+              {count > 1 && (
+                <button
+                  type="button"
+                  onClick={() => step(1)}
+                  aria-label="Next photo"
+                  className={thumbBtn}
+                >
+                  <ChevronRight className="size-6" />
+                </button>
+              )}
+            </div>
           </div>
         </>
       )}

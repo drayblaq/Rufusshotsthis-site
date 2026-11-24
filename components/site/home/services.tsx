@@ -15,7 +15,7 @@ export function Services() {
   return (
     <section
       aria-labelledby="services-title"
-      className="mx-auto max-w-site px-gutter py-section"
+      className="@container container-site py-section"
     >
       <SectionHeading
         id="services-title"
@@ -23,7 +23,7 @@ export function Services() {
         title={copy.services.title}
       />
 
-      <ul className="mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="mt-8 grid gap-x-[clamp(1.5rem,4vw,2.5rem)] @xl:grid-cols-2 @4xl:grid-cols-4">
         {services.map((s) => (
           <li key={s.title} className="border-t py-4">
             <h3 className="font-sans text-base font-medium tracking-normal">
@@ -34,9 +34,9 @@ export function Services() {
         ))}
       </ul>
 
-      <div className="mt-12 rounded-lg border bg-card p-5 sm:p-8">
+      <div className="@container mt-12 rounded-lg border bg-card p-[clamp(1.25rem,4vw,2rem)]">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h3 className="text-2xl">Packages</h3>
+          <h3 className="text-h3">Packages</h3>
           <p className="text-sm text-muted-foreground">
             {copy.services.packagesNote}{" "}
             <span className="font-medium text-foreground">
@@ -44,13 +44,13 @@ export function Services() {
             </span>
           </p>
         </div>
-        <ul className="mt-5 grid gap-3 sm:grid-cols-3">
+        <ul className="mt-5 grid gap-fluid @2xl:grid-cols-3">
           {packages.map((p) => (
             <li key={p.id} className="rounded-md bg-muted px-4 py-4">
               <p className="flex items-center justify-between text-sm font-medium">
                 {p.name}
                 {p.popular && (
-                  <span className="text-[0.65rem] tracking-[0.15em] text-highlight uppercase">
+                  <span className="text-xs font-semibold tracking-[0.15em] text-highlight uppercase">
                     Popular
                   </span>
                 )}
