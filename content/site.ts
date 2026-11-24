@@ -229,85 +229,167 @@ type PhotoEntry = {
   featured?: boolean; // featured photos appear in the home page hero (first 6)
 };
 
-// TODO: replace placeholder-* entries with real photos.
+// Order here = order on the Portfolio page. `featured: true` = Home hero (first 6, in order;
+// the first one loads first, so make it a strong, eye-catching shot).
 const photoList: PhotoEntry[] = [
+  // --- Featured (Home hero) ---
   {
-    file: "placeholder-01",
-    title: "Studio portrait",
-    alt: "Placeholder for a studio portrait",
-    category: "portraits",
-    featured: true,
-  },
-  {
-    file: "placeholder-02",
+    file: "convocation-cap",
     title: "Class of 2026",
-    alt: "Placeholder for a convocation photo",
+    alt: "Graduate in a mortarboard and University of Ilorin stole, smiling against a deep red backdrop",
     category: "convocation",
     featured: true,
   },
   {
-    file: "placeholder-03",
-    title: "The first look",
-    alt: "Placeholder for a wedding photo",
-    category: "weddings",
-    featured: true,
-  },
-  {
-    file: "placeholder-04",
-    title: "Match day",
-    alt: "Placeholder for a sports photo",
+    file: "sports-sky-ball",
+    title: "Spirit of the game",
+    alt: "Woman in a green and white jersey balancing a football on her shoulder against a bright blue sky",
     category: "sports",
     featured: true,
   },
   {
-    file: "placeholder-05",
-    title: "Thirty and thriving",
-    alt: "Placeholder for a milestone birthday photo",
+    file: "birthday-crown",
+    title: "Birthday crown",
+    alt: "Smiling young woman in purple being crowned with a silver tiara on her birthday",
     category: "events",
     featured: true,
   },
   {
-    file: "placeholder-06",
-    title: "Golden hour",
-    alt: "Placeholder for a wildlife photo",
-    category: "wildlife",
+    file: "portrait-studio-smile",
+    title: "Studio portrait",
+    alt: "Woman with long curls smiling warmly in a dark studio portrait",
+    category: "portraits",
     featured: true,
   },
   {
-    file: "placeholder-07",
-    title: "Window light",
-    alt: "Placeholder for a portrait",
+    file: "sports-polo-horse",
+    title: "Polo at the horse club",
+    alt: "Rider in a green cap on a rearing brown horse at a polo field",
+    category: "sports",
+    featured: true,
+  },
+  {
+    file: "portrait-brothers-mono",
+    title: "Brotherhood",
+    alt: "Black and white portrait of two men in sharp traditional outfits, one standing and one seated",
+    category: "portraits",
+    featured: true,
+  },
+
+  // --- Convocation ---
+  {
+    file: "convocation-red-chair",
+    title: "Scroll in hand",
+    alt: "Graduate in a black dress and cap seated on a leather chair, holding up her scroll against a red backdrop",
+    category: "convocation",
+  },
+  {
+    file: "convocation-joy",
+    title: "Pure joy",
+    alt: "Laughing graduate in a red hijab and mint suit holding a University of Ilorin scroll",
+    category: "convocation",
+  },
+  {
+    file: "convocation-friends",
+    title: "Graduating together",
+    alt: "Four graduates posing together on a red backdrop with scrolls and caps",
+    category: "convocation",
+  },
+  {
+    file: "convocation-engineer",
+    title: "Newly inducted engineer",
+    alt: "Young engineer in a brown waistcoat and stole holding a white safety helmet",
+    category: "convocation",
+  },
+  {
+    file: "convocation-stole",
+    title: "Poise",
+    alt: "Graduate with an updo wearing a University of Ilorin stole, arms folded, against a pale blue backdrop",
+    category: "convocation",
+  },
+  {
+    file: "convocation-gown",
+    title: "Cap in hand",
+    alt: "Graduate in a navy University of Ilorin gown looking down, cap in hand",
+    category: "convocation",
+  },
+  {
+    file: "convocation-suit",
+    title: "Bachelor of Arts",
+    alt: "Young man in a black suit and red tie with arms folded, studio portrait",
+    category: "convocation",
+  },
+  {
+    file: "convocation-red-scroll",
+    title: "Signed and sealed",
+    alt: "Graduate seated on a red backdrop, smiling and holding her scroll",
+    category: "convocation",
+  },
+
+  // --- Birthdays (Events) ---
+  {
+    file: "birthday-lilac-gown",
+    title: "Lilac dream",
+    alt: "Young woman in a full lilac lace gown and tiara looking back over her shoulder",
+    category: "events",
+  },
+  {
+    file: "birthday-horse",
+    title: "Birthday with a friend",
+    alt: "Man in white resting his forehead against a grey horse's head",
+    category: "events",
+  },
+  {
+    file: "birthday-white-shirt",
+    title: "Birthday in white",
+    alt: "Woman in sunglasses, white shirt and jeans posing in the studio",
+    category: "events",
+  },
+  {
+    file: "birthday-lilac-smile",
+    title: "Quiet joy",
+    alt: "Young woman in a lilac lace top, eyes closed, chin resting on her hands",
+    category: "events",
+  },
+  {
+    file: "birthday-shades",
+    title: "Golden hour glow",
+    alt: "Woman lowering her sunglasses in warm studio light",
+    category: "events",
+  },
+
+  // --- Sports ---
+  {
+    file: "sports-jersey-team",
+    title: "Jersey unveiling",
+    alt: "Group of young people in new blue OVS football jerseys, one holding a ball",
+    category: "sports",
+  },
+  {
+    file: "sports-jersey-duo",
+    title: "Game day",
+    alt: "Two people in blue OVS jerseys on an outdoor court, one with a foot on a football",
+    category: "sports",
+  },
+  {
+    file: "sports-ball-portrait",
+    title: "Eye on the ball",
+    alt: "Woman with an afro holding a worn football over half her face",
+    category: "sports",
+  },
+
+  // --- Portraits ---
+  {
+    file: "portrait-locs-outdoor",
+    title: "Natural light",
+    alt: "Woman with long locs smiling over her shoulder outdoors",
     category: "portraits",
   },
   {
-    file: "placeholder-08",
-    title: "Owambe colours",
-    alt: "Placeholder for a traditional wedding photo",
-    category: "weddings",
-  },
-  {
-    file: "placeholder-09",
-    title: "Caps in the air",
-    alt: "Placeholder for a convocation group photo",
-    category: "convocation",
-  },
-  {
-    file: "placeholder-10",
-    title: "Company dinner",
-    alt: "Placeholder for a corporate event photo",
-    category: "events",
-  },
-  {
-    file: "placeholder-11",
-    title: "Final whistle",
-    alt: "Placeholder for a sports photo",
-    category: "sports",
-  },
-  {
-    file: "placeholder-12",
-    title: "Still waters",
-    alt: "Placeholder for a wildlife photo",
-    category: "wildlife",
+    file: "portrait-locs-mono",
+    title: "In the details",
+    alt: "Black and white close-up of a woman's face framed by locs and her hand",
+    category: "portraits",
   },
 ];
 

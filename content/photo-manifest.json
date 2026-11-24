@@ -1,62 +1,122 @@
 {
-  "placeholder-01": {
+  "birthday-crown": {
+    "width": 1440,
+    "height": 1800,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JQBYdgpcwv65CqhsgMAD+JIXSZxtNBNEn69/y3MdJZf6IZj4/Vz4rv1TWjRvZYTnghJiKX4j8PSXlkjSYMySLCIVcjGO5WTYSVkxJEmoHjGqH6yY33TB5B/wAAA=="
+  },
+  "birthday-horse": {
+    "width": 1440,
+    "height": 1800,
+    "blurDataURL": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAADQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagC7DiAByq0JH+YVfa8OqBKQccqB4AD+8OYAC6J33sKfKxay9KeaS63mX54uf0NBtaEbx1iwbOUzErgj2k4zl8hwfFiS9b8KpGpAHqzlD6+O4jcrFvz+ZR793XbY6rTE9B3PjvsVvmeRsoB77ENPzdkiT/2QtQuytsccdcUwjnAA"
+  },
+  "birthday-lilac-gown": {
+    "width": 1440,
+    "height": 1801,
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAwCdASoQABQAPu1kqU2ppaQiMAgBMB2JZQCw7A8s1BHHjIwFmQAA6zfWCiVdIGjgbsdY/+STaoeMDQrhC1TbjoCYw0b8ntrZEvPpSAJPDlx7it2AAA=="
+  },
+  "birthday-lilac-smile": {
+    "width": 1440,
+    "height": 1800,
+    "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYwCdAdwAZPQ9fYJMeNr5AAD9IR/IhYYi+eOzM3QL7e4LL8fquIcMwkW1+ypzUMjcuMZ9Z0yCSf6lGZcoMcozj/5aJdzIXA3oSlPN2ECIJLW0699UBSZ60NYCZ8iaDdmAn3uwAAA="
+  },
+  "birthday-shades": {
+    "width": 1440,
+    "height": 1800,
+    "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAACQBACdASoQABQAPu1iqU2ppaQiMAgBMB2JaACdMoRwEaAAR2cW238+G8kQzHAA/dEp2TXY2cWj5sEOD67hLpuYXrMkyNq+AI9VkZrFTE3iKTXVJ40MLuDNPCMcfPaMQzpt2YFxAcXDdgduMgUL1z9AgVWIKjhH8oPvPKzHIr+oSAAA"
+  },
+  "birthday-white-shirt": {
+    "width": 1440,
+    "height": 1800,
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoQABQAPu1Ct1apoqakGAEwHYlAF2AxcNGHSL6AQJUTiMAA/Fpb9aDp7wibmxc2lSOdYSunaU61H3iUKUE6higwBOMGgeOfqFJ0MNyaViT/I1oj7zX7+bs10AZ5UmzBy6QnCas/ggpIF+JX7BnQ2MMAAAA="
+  },
+  "convocation-cap": {
+    "width": 1170,
+    "height": 1453,
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbACsACHw+zZ9sfA00AD+6+u4OU2IU8D368/g4iFFBDwkwOwR+Dw5H/LSnJhYHOCso4SfLMmgpRBLdomFqt5h+Qc6AAAA"
+  },
+  "convocation-engineer": {
+    "width": 1440,
+    "height": 1905,
+    "blurDataURL": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JYwC/OCBXBfoh9j3xbU/OgAD807mgI8XbutIvBoYPAZL1+cUm3+6AK5hVghxnAx6J6etKq3x1Dj1RXH3zpKPVf8gMdH5pnntEc//0WClTyq99fsT8E2QiX/TeTBhYhoz3/wkh0Vky/hubUKEIdlKImAA="
+  },
+  "convocation-friends": {
+    "width": 1600,
+    "height": 2291,
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQBACdASoQABcAPu1iqU2ppaOiMAgBMB2JbACdACHhn3byGNF6nj4cAAD+8NJGyq57fOGdea4fNR4GukQwuWT3iukYM5nX7gx1a+YvyRmk8a3HK/ZuG17XODP1642eeHLQ51fLD1TSouwa7H8uezSgAAA="
+  },
+  "convocation-gown": {
+    "width": 1440,
+    "height": 1920,
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACwAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JQBWAA9jWqZQzIZQmgADhwl7tt9GmbnsFfoEmzkJ0LhYNL+sLGXtGWrG8Yq9JdWusUaPKCoJJdnxwKhOspmtn9VYrE4KTOXgcJvbTIZ/IR8L5ROAAAA=="
+  },
+  "convocation-joy": {
+    "width": 1170,
+    "height": 1558,
+    "blurDataURL": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JbACdMoADTtaMBkPFI9aAr6WAAP7r7jOsRbQ0QHsT6y5XD4BnSqGdZyKiy4Finu6oLSMcjDLDK1eP8UnhmxMoMrg/Jppe7C2346hFvEkVlkUW7ic9cwa+gZmQNB3K+c6TCY5pf6HpxBAZA3tHohf9Dc94AA=="
+  },
+  "convocation-red-chair": {
     "width": 1600,
     "height": 2000,
-    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZwC7AC0cQNKmqIAA/uTpU5wtYZLplxyawHFeus8/nIwAAAA="
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAACQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoACs3dLP1EAAP7ZTasRPOsGNhUF43vgOCnXffVi1mDu5Q//BHZkJOcKVuOncIJAMJBbieKqORCKg5PZMgAAAA=="
   },
-  "placeholder-02": {
+  "convocation-red-scroll": {
     "width": 1600,
-    "height": 2000,
-    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABwAwCdASoQABQAPu1kqU2ppaQiMAgBMB2JZwC4MDBpKhFnq0AA/uPdnS8drDJdMuN8WEw2eWXeXVYAAAA="
+    "height": 2116,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JbACsADBdfRgAAP7u44emWfgaaxeetzVWapxSBJ/zqcXVnX21F/FD317QfmTJv53UWA/Eh7Mqq574j9EEoAAA"
   },
-  "placeholder-03": {
-    "width": 1600,
-    "height": 1067,
-    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABQAQCdASoQAAsAA4BaJQBOgC6gAP7uAuw7mNfKLXppkU6gntcAAA=="
+  "convocation-stole": {
+    "width": 1440,
+    "height": 1920,
+    "blurDataURL": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwAwCdASoQABUAPu1iqk2ppaQiMAgBMB2JZQC06BbnrXn03OlhyzoAAP2XoySCNO35Ypz/zCeGjIZJnm7tguNjlncEnim5fpqaW2CgPGH+6XxWjqZYsZTxIDHOKZCsNdrd2OcldzRhXWw9W3f7aImPAPr0nbLAhk30lUyosxijjWhoAAA="
   },
-  "placeholder-04": {
-    "width": 1600,
-    "height": 1067,
-    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoQAAsAA4BaJZQAAxZiJJFAAAD+52oA489mEKsXIulmAAAA"
+  "convocation-suit": {
+    "width": 1440,
+    "height": 1920,
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JZwC7ABtpk6+WbFmhdctLAAD+qZRcgcm7TfSoBqMZDHnAWdhNgdSieH4BaWRYpBWRMm0UYRL94Cm5MdjUOCGirp0SoOItiZp7911epkcIihlqYpnAAA=="
   },
-  "placeholder-05": {
-    "width": 1600,
-    "height": 2000,
-    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAABwAwCdASoQABQAPu1iqk4ppaQiMAgBMB2JZQCdAC0cQNKmqIAA/ugjwiLG5hh0y45D9ttJQ2B031XsfAAAAA=="
+  "portrait-brothers-mono": {
+    "width": 1440,
+    "height": 1920,
+    "blurDataURL": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JaQATwBQZhX4g/a5scv3FdgD+w/fabg8hJDqNhCYdnYkBkHLQX3GVzczO3yWkr9m1ziz0CiqnyWs1tkfhfNT/Ok/iYdz9JLP/CtIpu2ZKCzgorC73HSYaD3u8C89ILTGQ4G/qwT0WHkIW9D2SDst28gDlTgOAjZq3mD1a3QAAAA=="
   },
-  "placeholder-06": {
-    "width": 1600,
-    "height": 1067,
-    "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAsAA4BaJQBOgCPtkWTrQAD+52os/rCwLyWkQWdwAA=="
+  "portrait-locs-mono": {
+    "width": 1170,
+    "height": 1560,
+    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADwAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JaQAD5JlCYHq6UVtan5pYAOJ+WxhBB3CJgsloWZqyhqzgjz1sz1oSfBTgVN74xK23/3hGot+OwSnnRF23qmo3Pf7ysY1TVcTAzmZOKWI3XoHUBsQgjfwP3LZMCeF4pmW73S0PcLnGtsdUsPXXsf/naJWs7x8iZcAAAA=="
   },
-  "placeholder-07": {
-    "width": 1600,
-    "height": 2400,
-    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAwCdASoQABgAPu1orU6ppiSiMAgBMB2JZwC7ACFdB/KhYcggdZwA/tN1EolfbNr8c1w90h3AzyAA"
+  "portrait-locs-outdoor": {
+    "width": 1170,
+    "height": 1560,
+    "blurDataURL": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JYgC7AYwmrEAhDV8ef0AxAAD+j5i+4Nv1u3v5wKrCv9EfRGEm5IFY0JmshW6aQtVH3NWeaDBlM94SHW8v++WILkIWUFMF9d1U7IU+Cqj6T7QUWPZcAudsZPOXpZ5ocWKS8+QioY8f79VtLheFqYAA"
   },
-  "placeholder-08": {
-    "width": 1600,
-    "height": 2000,
-    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZwC06CHhgmRKzsiWYZsUQAD+6ozmhVS7uv4a/uOAAA=="
+  "portrait-studio-smile": {
+    "width": 1170,
+    "height": 1463,
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JYwDG9CHhTF7cNJyPsiiAAP7ukhv2ABHYAuBoM76TMfeR7EbwZLAQzNQ17PBPUK5PIvVcu0npOj6R64P7LSvZ6YgAAA=="
   },
-  "placeholder-09": {
-    "width": 1600,
-    "height": 1067,
-    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADwAQCdASoQAAsAA4BaJZwAAxZAdPFMHqAA/ushFOZlfI7gAE6e8IAA"
+  "sports-ball-portrait": {
+    "width": 1440,
+    "height": 1799,
+    "blurDataURL": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBdj+AQU4rgdyD7PkY0RiYAAzgkhcanqqqjwuZo11hqjl9bjPGh//ylbQT2acqBao2FMDx2jKdTNvoeKAiJeNrDOT6WVQjDWMUvrT90t9s8zFnZxvDakRZVKIurqWhXz8qexbcVlzJNbcQtSDDde9lqIq0gtaRew/ts9H53276VWBOXzOqPHbLxjM2uyh7H9bfy8Ilhm2KPcHaRrwAAA"
   },
-  "placeholder-10": {
-    "width": 1600,
-    "height": 1067,
-    "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAAAwAgCdASoQAAsAA4BaJYwCdAEfbiW9Q855YAD+52MQIAjkhQn7AoAA"
+  "sports-jersey-duo": {
+    "width": 1440,
+    "height": 1920,
+    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JbAC06YvC3Khq1KETCPhuUAD+t0PJsm+lmX9YfayHPsq2rhbSZIYEqsSPJOuKHXyd8eeLVloi0CY9TOxNH/2IRxVzbKtjU8StWHv6cn9ek+2AL/MsQjaW2nO6c6/M5171/5V6o+UPnFCEr56gI/2IVnNbz1VPBJ4AAA=="
   },
-  "placeholder-11": {
-    "width": 1600,
-    "height": 2000,
-    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAABwAwCdASoQABQAPu1kqU2ppaQiMAgBMB2JZwC3uBm7wXQclEAA/sPZpE8jcKjGzdD0tBRqaOy7YAAA"
+  "sports-jersey-team": {
+    "width": 1440,
+    "height": 1920,
+    "blurDataURL": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAABQBQCdASoQABUAPu1iqU2ppaOiMAgBMB2JbACdMoO4CbCvAbZoU+Iy7lEJ71o1oQ9iYWAA4jJuhhyL7VVGdTr5KxAzdWIzymjoBtOGvnY+qF1eMfo61l/HDc9mP1jDdmzCCnANfZiMVOdqVfU1+pxDVaP5exMOFtV3TJH7iSBormj+b5uNFS7bizk5P2DezUTUhUPZuqo06xAmrt04FIB/bx/9Wq8dA3CrY3yE06hxfP8iSAA="
   },
-  "placeholder-12": {
-    "width": 1600,
-    "height": 1600,
-    "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAAAQAgCdASoQABAAA4BaJYwCdAEDfnIqIuRAAP7rE9YijuEzekigTDaxrywAAA=="
+  "sports-polo-horse": {
+    "width": 1440,
+    "height": 1800,
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbAAAW6Werurw8l8JsgAA/u/OjIf6oy1EydIlaVLw7Ro8wljWFvWTQHB90GCF1l/kAv3ny97Um5fkvDEHTn2Ck7iEyzDe9P3FvZZvy1LNuLodDXJ4G5/Y/bdZ4aZyFgA="
+  },
+  "sports-sky-ball": {
+    "width": 1440,
+    "height": 1799,
+    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagCdAYvq7YUO1Xj74X81MyuwAP7tqDEP6k8hdf43Z7d2FL/EOBIJyfZEPb1tpUwikXYkx4u3AKII5VeNgyrIim1XZIeieCY/+9jsU88Ek6QltKXx3DY42T/n6cnznlI8geqS8ioYTYEkbrkINVwFxmIV3h8cZ4AAAA=="
   }
 }
