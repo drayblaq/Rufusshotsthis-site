@@ -613,7 +613,12 @@ test.describe("analytics events", () => {
   }) => {
     const vercelScripts: string[] = [];
     page.on("request", (r) => {
-      if (r.url().includes("/_vercel/")) vercelScripts.push(r.url());
+      // v2 serves its scripts from random paths (/<16 hex>/script.js) to dodge ad
+      // blockers; older setups use /_vercel/...
+      if (
+        /\/_vercel\/|\/[0-9a-f]{16}\/script\.js/.test(new URL(r.url()).pathname)
+      )
+        vercelScripts.push(r.url());
     });
 
     await open(page, "/portfolio");
@@ -638,6 +643,11 @@ test.describe("analytics events", () => {
 
     // Local builds never load Vercel's scripts (live production site only)
     expect(vercelScripts).toEqual([]);
+    expect(
+      await page.evaluate(
+        () => typeof (window as unknown as { si?: unknown }).si,
+      ),
+    ).toBe("undefined");
   });
 
   test("nav and footer WhatsApp taps report their source", async ({ page }) => {
