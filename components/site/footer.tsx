@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { copy, nav, site } from "@/content/site";
+import { Mail } from "lucide-react";
+import { copy, credits, nav, site } from "@/content/site";
+import { WhatsAppIcon } from "./icons";
 import { Logo } from "./logo";
 import { SocialLinks } from "./social-links";
 
@@ -40,9 +42,13 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <p className="container-site py-5 text-sm">
-          © <CopyrightYear /> {site.name}. {copy.footer.rights}
-        </p>
+        <div className="container-site flex flex-col gap-x-6 gap-y-1 py-4 text-sm md:flex-row md:items-center md:justify-between md:pr-16">
+          <p className="py-2">
+            © <CopyrightYear /> {site.name}. {copy.footer.rights}
+          </p>
+          {/* md:pr-16 keeps the credit links clear of the floating WhatsApp button */}
+          <Credit />
+        </div>
       </div>
     </footer>
   );
@@ -56,4 +62,34 @@ async function CopyrightYear() {
   "use cache";
   cacheLife("days");
   return new Date().getFullYear();
+}
+
+/**
+ * Developer credit with contact links. Plain links (not tracked): these contact
+ * the site's developer, not Rufus, so they stay out of the booking analytics.
+ */
+function Credit() {
+  const link = "inline-flex min-h-11 items-center gap-2 hover:underline";
+  const wa = `https://wa.me/${credits.whatsapp.number}?text=${encodeURIComponent(credits.whatsapp.message)}`;
+  return (
+    <p className="flex flex-wrap items-center gap-x-5">
+      <span className="py-2">
+        {credits.label} <strong className="font-bold">{credits.name}</strong>
+      </span>
+      <a href={wa} target="_blank" rel="noopener noreferrer" className={link}>
+        <WhatsAppIcon className="size-4 shrink-0" />
+        <span>
+          <span className="sr-only">{credits.name} on WhatsApp </span>
+          {credits.whatsapp.display}
+        </span>
+      </a>
+      <a href={`mailto:${credits.email}`} className={`${link} break-all`}>
+        <Mail className="size-4 shrink-0" aria-hidden />
+        <span>
+          <span className="sr-only">Email {credits.name} </span>
+          {credits.email}
+        </span>
+      </a>
+    </p>
+  );
 }

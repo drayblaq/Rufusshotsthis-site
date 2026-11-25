@@ -135,6 +135,27 @@ async function coverageCheck(page: Page) {
     // Footer bottom must end above the mobile bar
     window.scrollTo(0, document.documentElement.scrollHeight);
     await new Promise((r) => setTimeout(r, 50));
+    // At the very bottom, no footer link may sit under the floating WhatsApp button
+
+    const fabEl = document.querySelector("[data-whatsapp-fab]");
+
+    if (fabEl && getComputedStyle(fabEl).display !== "none") {
+      const f = fabEl.getBoundingClientRect();
+
+      for (const a of document.querySelectorAll("footer a")) {
+        const r = a.getBoundingClientRect();
+
+        if (
+          r.right > f.left &&
+          r.left < f.right &&
+          r.bottom > f.top &&
+          r.top < f.bottom
+        )
+          issues.push(
+            `floating button covers footer link: ${(a as HTMLElement).innerText.trim().slice(0, 30)}`,
+          );
+      }
+    }
     const nav = document.querySelector("[data-mobile-nav]");
     const foot = document.querySelector("footer");
     if (nav && foot && getComputedStyle(nav).display !== "none") {
@@ -658,7 +679,7 @@ test.describe("analytics events", () => {
       .click();
     await page
       .locator("footer")
-      .getByRole("link", { name: /WhatsApp/ })
+      .getByRole("link", { name: /WhatsApp \+234/ })
       .click();
     const got = await events(page);
     expect(got).toContainEqual({
@@ -669,6 +690,13 @@ test.describe("analytics events", () => {
       name: "whatsapp_chat",
       data: { source: "footer" },
     });
+    // The developer credit link is not tracked (it doesn't contact Rufus)
+    const before = (await events(page)).length;
+    await page
+      .locator("footer")
+      .getByRole("link", { name: /DRAY on WhatsApp/ })
+      .click();
+    expect((await events(page)).length).toBe(before);
   });
 
   test("book_send carries option ids only", async ({ page }) => {

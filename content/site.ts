@@ -45,6 +45,19 @@ export const contact = {
   },
 } as const;
 
+/** Website credit shown at the bottom of the footer (the developer, not Rufus). */
+export const credits = {
+  label: "Website by",
+  name: "DRAY",
+  whatsapp: {
+    display: "+229 69 74 71 61",
+    number: "22969747161", // international format, no "+" or spaces
+    message:
+      "Hi DRAY, I saw the RufusShotThis website and I'd like to talk about a website.",
+  },
+  email: "damilare.alabi.dev@gmail.com",
+} as const;
+
 /** Pre-filled WhatsApp messages. Keep them short and friendly. */
 export const whatsappMessages = {
   general:
